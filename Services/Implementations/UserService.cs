@@ -40,12 +40,12 @@ public class UserService(IConfiguration configuration, UserManager<User> userMan
     public async Task<string> Login(LoginUserDto dto)
     {
         User? user = await userManager.FindByNameAsync(dto.Username);
-        if (user == null) 
+        if (user == null)
         {
             throw new ArgumentException($"Name {dto.Username} is not registered!");
         }
 
-        if (user == null || !await userManager.CheckPasswordAsync(user, dto.Password))
+        if (!await userManager.CheckPasswordAsync(user, dto.Password))
         {
             throw new ArgumentException($"Unable to authenticate user {dto.Username}!");
         }
@@ -66,8 +66,8 @@ public class UserService(IConfiguration configuration, UserManager<User> userMan
 
         JwtSecurityToken token = new JwtSecurityToken
         (
-            issuer: configuration["JWT:Issuer"],
-            audience: configuration["JWT:Audience"],
+            issuer: configuration["JWT:ValidIssuer"],
+            audience: configuration["JWT:ValidAudience"],
             expires: DateTime.Now.AddHours(3),
             claims: claims,
             signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
