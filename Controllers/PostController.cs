@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using PostHubAPI.Dtos.Post;
 using PostHubAPI.Exceptions;
 using PostHubAPI.Services.Interfaces;
@@ -37,9 +37,9 @@ public class PostController(IPostService postService) : ControllerBase
     {
         if (ModelState.IsValid)
         {
-            var newPostId = await _postService.CreateNewPostAsync(dto);
-            var locationUri = $"{Request.Scheme}://{Request.Host}/api/Post/{newPostId}";
-            return Created(locationUri, newPostId);
+            ReadPostDto created = await _postService.CreateNewPostAsync(dto);
+            string locationUri = $"{Request.Scheme}://{Request.Host}/api/Post/{created.Id}";
+            return Created(locationUri, created);
         }
 
         return BadRequest(ModelState);

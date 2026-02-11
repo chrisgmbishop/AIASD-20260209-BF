@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using PostHubAPI.Data;
 using PostHubAPI.Dtos.Post;
@@ -28,12 +28,17 @@ public class PostService(ApplicationDbContext context, IMapper mapper) : IPostSe
         throw new NotFoundException("Post not found!");
     }
 
-    public async Task<int> CreateNewPostAsync(CreatePostDto dto)
+    public async Task<ReadPostDto> CreateNewPostAsync(CreatePostDto dto)
     {
         Post post = mapper.Map<Post>(dto);
         context.Posts.Add(post);
         await context.SaveChangesAsync();
-        return post.Id;
+        Post? created = await context.Posts.Include(p => p.Comments).FirstOrDefaultAsync(p => p.Id == post.Id);
+        if (created == null)
+        {
+            throw new InvalidOperationException("Post was not persisted.");
+        }
+        return mapper.Map<ReadPostDto>(created);
     }
 
     public async Task<ReadPostDto> EditPostAsync(int id, EditPostDto dto)

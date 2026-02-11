@@ -1,3 +1,11 @@
+---
+provenance:
+  created: "2026-02-11"
+  created_by: "AI-assisted (Cursor)"
+  source: "GitHub CLI commands for issue/PR workflow"
+  version: "1.0"
+---
+
 # Create issue and PR for unit test failures
 
 Run these steps from the repo root **after** authenticating with GitHub CLI (`gh auth login` if needed).

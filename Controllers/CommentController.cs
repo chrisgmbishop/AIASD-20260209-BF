@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PostHubAPI.Dtos.Comment;
 using PostHubAPI.Exceptions;
@@ -32,9 +32,9 @@ public class CommentController(ICommentService commentService) : ControllerBase
         {
             if (ModelState.IsValid)
             {
-                var newCommentId = await commentService.CreateNewCommnentAsync(postId, dto);
-                var locationUri = $"{Request.Scheme}://{Request.Host}/api/Comment/{newCommentId}";
-                return Created(locationUri, newCommentId);
+                ReadCommentDto created = await commentService.CreateNewCommentAsync(postId, dto);
+                string locationUri = $"{Request.Scheme}://{Request.Host}/api/Comment/{created.Id}";
+                return Created(locationUri, created);
             }
 
             return BadRequest(ModelState);

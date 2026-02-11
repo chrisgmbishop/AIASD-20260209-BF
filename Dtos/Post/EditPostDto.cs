@@ -1,7 +1,14 @@
-﻿namespace PostHubAPI.Dtos.Post;
+using System.ComponentModel.DataAnnotations;
+
+namespace PostHubAPI.Dtos.Post;
 
 public class EditPostDto
 {
-    public string Title { get; set; }
-    public string Body { get; set; }
+    [Required]
+    [StringLength(100)]
+    public string Title { get; set; } = string.Empty;
+
+    [Required]
+    [StringLength(200)]
+    public string Body { get; set; } = string.Empty;
 }

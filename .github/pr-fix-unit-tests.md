@@ -1,3 +1,11 @@
+---
+provenance:
+  created: "2026-02-11"
+  created_by: "AI-assisted (Cursor)"
+  source: "PR template for fixing unit tests"
+  version: "1.0"
+---
+
 # PR: Fix failing unit tests
 
 Use this file as the body when creating the pull request (e.g. `gh pr create --title "Fix failing unit tests" --body-file .github/pr-fix-unit-tests.md`).

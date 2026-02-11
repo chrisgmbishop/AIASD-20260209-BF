@@ -1,3 +1,11 @@
+---
+provenance:
+  created: "2026-02-11"
+  created_by: "AI-assisted (Cursor)"
+  source: "issue template for unit test failures"
+  version: "1.0"
+---
+
 # Issue: Unit tests failing when running `dotnet test`
 
 Use this file as the body when creating the GitHub issue (e.g. `gh issue create --title "..." --body-file .github/issue-unit-tests-failing.md`).
